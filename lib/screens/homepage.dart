@@ -306,10 +306,10 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           Text(
-                            'Welcome to Smart Home',
+                            'Welcome to Smart Room Monitoring System',
                             style: TextStyle(
                               color: Colors.grey[400],
-                              fontSize: 14,
+                              fontSize: 12,
                             ),
                           ),
                         ],
