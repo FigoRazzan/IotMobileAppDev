@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart'; // Import file login untuk navigasi setelah splash screen
+import 'homepage.dart'; // Import file homepage untuk navigasi setelah splash screen
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,11 +12,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Setelah 3 detik, navigasi ke login screen
+    // Setelah 3 detik, navigasi ke home screen
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const loginScreen()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     });
   }
