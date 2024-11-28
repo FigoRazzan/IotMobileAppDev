@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
   circle_nav_bar: ^2.0.1+1  
+  animated_splash_screen: ^1.3.0
+  lottie: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -53,6 +55,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+  - assets/lottie/Animation - splashscreen.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart'; // Import file homepage untuk navigasi setelah splash screen
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:lottie/lottie.dart';
+import 'homepage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,42 +10,45 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
-    // Setelah 3 detik, navigasi ke home screen
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    });
+    // Tetapkan durasi awal, akan diperbarui nanti oleh onLoaded
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2), // Durasi sementara
+    )..repeat(); // Animasi akan looping
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Membersihkan controller saat widget dihancurkan
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 7, 141, 225),
-            Color(0xff281537),
-          ]),
-        ),
-        child: const Center(
-          child: Text(
-            'Splash Screen',
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+    return AnimatedSplashScreen(
+      splash: Lottie.asset(
+        'assets/lottie/Animation - splashscreen.json',
+        controller: _controller,
+        onLoaded: (composition) {
+          // Atur durasi animasi menjadi 1.5x lebih cepat
+          _controller.duration = composition.duration * 2 ~/ 3;
+          _controller.repeat(); // Pastikan animasi tetap looping
+        },
       ),
+      backgroundColor:
+          const Color.fromARGB(255, 0, 0, 0), // Warna latar belakang
+      nextScreen: const HomePage(), // Halaman setelah splash screen
+      splashIconSize: 450, // Ukuran animasi splash
+      duration: 10000, // Durasi splash screen dalam milidetik
+      splashTransition:
+          SplashTransition.fadeTransition, // Transisi ke halaman berikutnya
     );
   }
 }
