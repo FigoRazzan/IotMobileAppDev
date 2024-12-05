@@ -10,4 +10,5 @@ class SensorValues {
   static bool isFireDetected = false;
   static bool isDoorOpen = false;
   static bool isLightOn = false;
+  static bool isDoorLocked = false;
 }

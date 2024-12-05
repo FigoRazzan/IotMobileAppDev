@@ -188,8 +188,7 @@ class _MonitoringPageState extends State<MonitoringPage> {
                 subtitle: SensorValues.isWaterDetected
                     ? 'Water Detected'
                     : 'No Water',
-                color:
-                    SensorValues.isWaterDetected ? Colors.orange : Colors.green,
+                color: SensorValues.isWaterDetected ? Colors.red : Colors.green,
                 isActive: true,
                 onTap: () {
                   setState(() {
@@ -213,6 +212,22 @@ class _MonitoringPageState extends State<MonitoringPage> {
                   setState(() {
                     SensorValues.isMotionDetected =
                         !SensorValues.isMotionDetected;
+                  });
+                },
+              ),
+              // Flame sensor device
+              _buildDeviceCard(
+                icon: Icons.local_fire_department,
+                title: 'Flame Sensor',
+                subtitle:
+                    SensorValues.isFireDetected ? 'Fire Detected' : 'No Fire',
+                color: SensorValues.isFireDetected
+                    ? Colors.orange
+                    : Colors.blueGrey,
+                isActive: true,
+                onTap: () {
+                  setState(() {
+                    SensorValues.isFireDetected = !SensorValues.isFireDetected;
                   });
                 },
               ),

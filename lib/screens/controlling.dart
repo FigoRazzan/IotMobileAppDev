@@ -38,6 +38,18 @@ class _ControllingPageState extends State<ControllingPage> {
             });
           },
         ),
+        _buildDeviceCard(
+          icon: Icons.lock,
+          title: 'Door Lock',
+          subtitle: SensorValues.isDoorLocked ? 'Locked' : 'Unlocked',
+          color: SensorValues.isDoorLocked ? Colors.blue : Colors.orange,
+          isActive: SensorValues.isDoorLocked,
+          onTap: () {
+            setState(() {
+              SensorValues.isDoorLocked = !SensorValues.isDoorLocked;
+            });
+          },
+        ),
       ],
     );
   }
@@ -100,7 +112,18 @@ class _ControllingPageState extends State<ControllingPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Text(
+            'Devices',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: _buildControllingDevices(),
