@@ -215,22 +215,6 @@ class _MonitoringPageState extends State<MonitoringPage> {
                   });
                 },
               ),
-              // Flame sensor device
-              _buildDeviceCard(
-                icon: Icons.local_fire_department,
-                title: 'Flame Sensor',
-                subtitle:
-                    SensorValues.isFireDetected ? 'Fire Detected' : 'No Fire',
-                color: SensorValues.isFireDetected
-                    ? Colors.orange
-                    : Colors.blueGrey,
-                isActive: true,
-                onTap: () {
-                  setState(() {
-                    SensorValues.isFireDetected = !SensorValues.isFireDetected;
-                  });
-                },
-              ),
             ],
           ),
         ],
