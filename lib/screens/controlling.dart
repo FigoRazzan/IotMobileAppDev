@@ -9,6 +9,32 @@ class ControllingPage extends StatefulWidget {
 }
 
 class _ControllingPageState extends State<ControllingPage> {
+  // Fungsi untuk mengubah status perangkat dan mengupdate di API
+  Future<void> _toggleDevice(String device, bool currentState) async {
+    final newState = !currentState;
+    final success = await SensorValues.updateDeviceState(device, newState);
+
+    if (success) {
+      setState(() {
+        switch (device) {
+          case 'door':
+            SensorValues.isDoorOpen = newState;
+            break;
+          case 'lamp':
+            SensorValues.isLightOn = newState;
+            break;
+          case 'door_locked':
+            SensorValues.isDoorLocked = newState;
+            break;
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update $device status')),
+      );
+    }
+  }
+
   Widget _buildControllingDevices() {
     return Wrap(
       spacing: 16,
@@ -19,12 +45,8 @@ class _ControllingPageState extends State<ControllingPage> {
           title: 'Door',
           subtitle: SensorValues.isDoorOpen ? 'Open' : 'Closed',
           color: SensorValues.isDoorOpen ? Colors.green : Colors.red,
-          isActive: true,
-          onTap: () {
-            setState(() {
-              SensorValues.isDoorOpen = !SensorValues.isDoorOpen;
-            });
-          },
+          isActive: SensorValues.isDoorOpen,
+          onTap: () => _toggleDevice('door', SensorValues.isDoorOpen),
         ),
         _buildDeviceCard(
           icon: Icons.lightbulb,
@@ -32,11 +54,7 @@ class _ControllingPageState extends State<ControllingPage> {
           subtitle: SensorValues.isLightOn ? 'ON' : 'OFF',
           color: SensorValues.isLightOn ? Colors.yellow : Colors.grey,
           isActive: SensorValues.isLightOn,
-          onTap: () {
-            setState(() {
-              SensorValues.isLightOn = !SensorValues.isLightOn;
-            });
-          },
+          onTap: () => _toggleDevice('lamp', SensorValues.isLightOn),
         ),
         _buildDeviceCard(
           icon: Icons.lock,
@@ -44,11 +62,7 @@ class _ControllingPageState extends State<ControllingPage> {
           subtitle: SensorValues.isDoorLocked ? 'Locked' : 'Unlocked',
           color: SensorValues.isDoorLocked ? Colors.blue : Colors.orange,
           isActive: SensorValues.isDoorLocked,
-          onTap: () {
-            setState(() {
-              SensorValues.isDoorLocked = !SensorValues.isDoorLocked;
-            });
-          },
+          onTap: () => _toggleDevice('door_locked', SensorValues.isDoorLocked),
         ),
       ],
     );

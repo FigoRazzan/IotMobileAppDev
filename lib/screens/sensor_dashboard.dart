@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'sensor_values.dart';
 
-class MonitoringPage extends StatefulWidget {
-  const MonitoringPage({Key? key}) : super(key: key);
+class SensorDashboard extends StatefulWidget {
+  const SensorDashboard({Key? key}) : super(key: key);
 
   @override
-  _MonitoringPageState createState() => _MonitoringPageState();
+  _SensorDashboardState createState() => _SensorDashboardState();
 }
 
-class _MonitoringPageState extends State<MonitoringPage> {
+class _SensorDashboardState extends State<SensorDashboard> {
   @override
   void initState() {
     super.initState();
@@ -284,14 +284,27 @@ class _MonitoringPageState extends State<MonitoringPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 16),
-          _buildTemperatureHumidityCards(),
-          const SizedBox(height: 24),
-          _buildMonitoringDevices(),
-        ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('Monitoring Dashboard'),
+        backgroundColor: Colors.orangeAccent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            _buildTemperatureHumidityCards(),
+            const SizedBox(height: 24),
+            _buildMonitoringDevices(),
+          ],
+        ),
       ),
     );
   }
